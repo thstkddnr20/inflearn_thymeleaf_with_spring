@@ -32,6 +32,11 @@ public class FormItemController {
         return regions;
     }
 
+    @ModelAttribute("itemTypes")
+    public ItemType[] itemTypes(){
+        return ItemType.values(); // Enum의 모든 정보를 배열로 가져옴
+    }
+
 
     @GetMapping
     public String items(Model model) {
@@ -57,6 +62,7 @@ public class FormItemController {
     public String addItem(@ModelAttribute Item item, RedirectAttributes redirectAttributes) {
         log.info("item.open={}", item.getOpen());
         log.info("item.regions={}", item.getRegions());
+        log.info("item.itemType={}", item.getItemType());
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
